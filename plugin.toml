@@ -5,3 +5,4 @@ version = "0.1.0"
 description = "Turns the dark-pulse-amber, dark-pulse-lcars and dark-pulse-neon themes into the full PULSE design: fonts, shapes, tabs, panel headers and decoration, across Tern and every plugin."
 icon = "palette"
 window = "window.luau"
+styles = ["toggle.css"]

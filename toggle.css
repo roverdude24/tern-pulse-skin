@@ -1,0 +1,45 @@
+/* The skin toggle: PULSE skin's four status-line segments, shown in the top bar just left of Tern's tool buttons.
+   Always on (manifest style), so OFF still shows when no PULSE theme is kept.
+
+   Tern gives plugins no top-bar slot, only status-line segments, and its renderer clips a child to its parent's box.
+   So the footer is stretched over the whole window, click-through, and its own row stays on the bottom edge; Tern
+   paints no status-line background, and the skin paints its fill as a bottom strip (--pk-sl-h).
+   shortcut: offsets assume the tiles/float top bar (tools end 207 px from the right edge); a rail layout or more
+   tool buttons would need them moved. */
+#statusline {
+	--pk-sl-h: calc(26px + var(--tn-sl-lift, 0px) / var(--tn-zoom, 1));
+	/* Both bars are fixed at z-index 30; one level up paints the toggle over the top bar. */
+	z-index: 31 !important;
+	top: 0 !important;
+	height: auto !important;
+	align-items: flex-end !important;
+	padding-bottom: calc(5px + var(--tn-sl-lift, 0px) / var(--tn-zoom, 1)) !important;
+	pointer-events: none !important;
+}
+#statusline > * { pointer-events: auto; }
+#statusline::after { top: auto !important; height: var(--pk-sl-h) !important; }
+
+#statusline .sl-plugin[data-plugin='pulse-skin'] {
+	position: fixed;
+	top: 10px;
+	right: calc(217px + 3 * 56px);
+	width: 54px;
+	height: 22px;
+	justify-content: center;
+	font: 600 10.5px var(--mono);
+	letter-spacing: 0.08em;
+	color: var(--t3);
+	background: transparent;
+	box-shadow: inset 0 0 0 1px var(--l3);
+	border-radius: var(--r-chip);
+	cursor: pointer;
+}
+#statusline .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] { right: calc(217px + 2 * 56px); }
+#statusline .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] { right: calc(217px + 56px); }
+#statusline .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] + .sl-plugin[data-plugin='pulse-skin'] { right: 217px; }
+#statusline .sl-plugin[data-plugin='pulse-skin']:hover { color: var(--t1); box-shadow: inset 0 0 0 1px var(--accent); }
+#statusline .sl-plugin[data-plugin='pulse-skin'][data-tone='accent'] {
+	color: var(--grad-ink);
+	background: var(--accent);
+	box-shadow: none;
+}

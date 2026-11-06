@@ -37,7 +37,8 @@ body{background:var(--pk-bg-window)}
 #tabbar .icon-btn{color:var(--pk-tx-3)}
 
 /* Status bar */
-#statusline{background:var(--pk-bg-sunken);box-shadow:inset 0 1px 0 var(--pk-line);color:var(--pk-tx-3);font-family:var(--pk-f-ui);font-size:11px}
+/* toggle.css stretches the footer over the whole window (click-through), so its fill is a bottom strip, not a background. */
+#statusline{--pk-sl-bg:var(--pk-bg-sunken);background:linear-gradient(to top,var(--pk-sl-bg) var(--pk-sl-h),var(--pk-line) var(--pk-sl-h) calc(var(--pk-sl-h) + 1px),transparent calc(var(--pk-sl-h) + 1px));color:var(--pk-tx-3);font-family:var(--pk-f-ui);font-size:11px}
 
 /* Panes: the design's panel: flat, 1 px edge, labelled header with a rule. */
 .tn-stage .tn-pane{background:var(--pk-bg-panel)}
@@ -176,7 +177,6 @@ return {
 /* Amber Phosphor: square everything, scanlines on the bars, crosses at panel corners, checker label bar. */
 *{border-radius:0!important}
 #tabbar::after,#statusline::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
-#tabbar,#statusline{position:relative}
 .tn-stage .tn-pane::after{--c:var(--pk-tx-3);box-shadow:inset 0 0 0 1px var(--pk-panel-edge);background:
 linear-gradient(var(--c),var(--c)) 0 4px/9px 1px no-repeat,linear-gradient(var(--c),var(--c)) 4px 0/1px 9px no-repeat,
 linear-gradient(var(--c),var(--c)) 100% 4px/9px 1px no-repeat,linear-gradient(var(--c),var(--c)) calc(100% - 4px) 0/1px 9px no-repeat,
@@ -298,7 +298,7 @@ linear-gradient(var(--c),var(--c)) 100% calc(100% - 4px)/9px 1px no-repeat,linea
 --pk-d-flicker:none;
 }]==] .. common .. [==[
 /* LCARS Deck: pills, a four-colour band under the top bar, a half-pill end cap on every header. */
-#tabbar{box-shadow:none;position:relative}
+#tabbar{box-shadow:none}
 #tabbar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;pointer-events:none;background:linear-gradient(90deg,
 var(--pk-peach) 0 34%,transparent 34% calc(34% + 4px),var(--pk-lilac) calc(34% + 4px) 60%,transparent 60% calc(60% + 4px),
 var(--pk-peri) calc(60% + 4px) 82%,transparent 82% calc(82% + 4px),var(--pk-salmon) calc(82% + 4px) 100%)}
@@ -306,7 +306,7 @@ var(--pk-peri) calc(60% + 4px) 82%,transparent 82% calc(82% + 4px),var(--pk-salm
 .tn-head::after{content:"";position:absolute;left:0;top:7px;bottom:7px;width:6px;border-radius:6px 0 0 6px;background:var(--pk-hdr-cap);pointer-events:none}
 .tn-stage .tn-pane{border-radius:12px}
 .tn-head .tn-title{font-weight:600}
-#statusline{background:var(--pk-bg-window)}
+#statusline{--pk-sl-bg:var(--pk-bg-window)}
 ]==],
 	["dark-pulse-neon"] = [==[html,html.glass,html.clear,html.solid{
 --pk-bg-window:#03070F;
@@ -422,7 +422,6 @@ var(--pk-peri) calc(60% + 4px) 82%,transparent 82% calc(82% + 4px),var(--pk-salm
 /* Neon Command: square everything, scanlines on bars and panels, cyan corner brackets. */
 *{border-radius:0!important}
 #tabbar::after,#statusline::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:6;background:repeating-linear-gradient(0deg,rgba(0,0,0,.24) 0 1px,transparent 1px 3px)}
-#tabbar,#statusline{position:relative}
 .tn-stage .tn-pane::after{--b:var(--pk-info);box-shadow:inset 0 0 0 1px var(--pk-panel-edge);background:
 linear-gradient(var(--b),var(--b)) 0 0/12px 2px no-repeat,linear-gradient(var(--b),var(--b)) 0 0/2px 12px no-repeat,
 linear-gradient(var(--b),var(--b)) 100% 0/12px 2px no-repeat,linear-gradient(var(--b),var(--b)) 100% 0/2px 12px no-repeat,

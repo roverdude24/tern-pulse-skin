@@ -2,7 +2,7 @@
 
 ![Neon skin](docs/neon.png)
 
-Three full skins for [Tern](https://tern.sh): **Amber Phosphor**, **LCARS Deck** and **Neon Command**. Each one restyles the whole window, not just its colours: fonts, square or pill shapes, tab style, labelled panel headers, scanlines, corner marks, and the LCARS colour band and header caps.
+Three full skins for [Tern](https://docs.stencil.so/tern/): **Amber Phosphor**, **LCARS Deck** and **Neon Command**. Each one restyles the whole window, not just its colours: fonts, square or pill shapes, tab style, labelled panel headers, scanlines, corner marks, and the LCARS colour band and header caps.
 
 The skin restyles Tern's shared tokens and surface kit, not any one plugin. Every plugin that draws with Tern's canvas and blocks (Roost, Overseer, Agent Scheduler, …) follows it.
 

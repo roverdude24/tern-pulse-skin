@@ -13,7 +13,40 @@ local CHOICES = {
 }
 local FALLBACK = "dark-gruvbox"
 
+-- Installs the themes (into omp's themes folder, which Tern follows) and fonts (macOS user fonts) from the package,
+-- replacing copies that differ, so `tern plugin install` is the whole setup. Once per VM.
+local installed = false
+local function install(cx)
+	if installed then return end
+	installed = true
+	local home = tern.getenv("HOME")
+	if not home then return end
+	local omp = cx.settings:get("omp_dir")
+	if not omp or omp == "" then omp = home .. "/.omp/agent" end
+	omp = omp:gsub("^~", home)
+	local function copy(from, dir, name)
+		local data = tern.fs.read(from .. "/" .. name)
+		local to = dir .. "/" .. name
+		if tern.fs.exists(to) and tern.fs.read(to) == data then return false end
+		tern.fs.mkdir(dir)
+		tern.fs.write(to, data)
+		return true
+	end
+	local ok, err = pcall(function()
+		for _, name in tern.fs.list("themes") do copy("themes", omp .. "/themes", name) end
+		local fonts = home .. "/Library/Fonts"
+		if not tern.fs.exists(fonts) then return end
+		local added = false
+		for _, name in tern.fs.list("fonts") do
+			if name:match("%.[ot]tf$") and copy("fonts", fonts, name) then added = true end
+		end
+		if added then cx:toast("info", "PULSE skin fonts installed", "Run `tern restart` once so Tern picks them up.") end
+	end)
+	if not ok then cx:toast("error", "PULSE skin could not install its themes", tostring(err)) end
+end
+
 local function sync(cx)
+	install(cx)
 	local name = cx.settings:get("theme_dark")
 	local css = skins[name]
 	if not css and name then tern.kv.set("previous-theme", name) end
